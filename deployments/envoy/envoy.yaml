@@ -48,7 +48,7 @@ static_resources:
   clusters:
     - name: echo_service
       connect_timeout: 0.25s
-      type: logical_dns
+      type: strict_dns
       http2_protocol_options: {}
       lb_policy: round_robin
       load_assignment:
@@ -58,5 +58,5 @@ static_resources:
             - endpoint:
                 address:
                   socket_address:
-                    address: api
+                    address: api-svc
                     port_value: 50051
