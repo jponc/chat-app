@@ -1,0 +1,16 @@
+syntax = "proto3";
+option go_package="./pbs/chatapp_apiservice_v1";
+
+package chatapp_apiservice_v1;
+
+service Api {
+  rpc Hello(HelloRequest) returns (HelloResponse) {};
+}
+
+message HelloRequest {
+  string name = 1;
+}
+
+message HelloResponse {
+  string message = 1;
+}
