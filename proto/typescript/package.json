@@ -1,7 +1,8 @@
 {
   "name": "chat-app-protos",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
+  "main": "index.js",
   "dependencies": {
     "@types/google-protobuf": "^3.15.6",
     "google-protobuf": "^3.21.0",
