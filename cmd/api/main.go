@@ -7,7 +7,7 @@ import (
 
 	log "github.com/sirupsen/logrus"
 
-	pb "github.com/jponc/chat-app/pbs/chatapp_apiservice_v1"
+	pb "github.com/jponc/chat-app/proto/go/chatapp_apiservice_v1"
 	"google.golang.org/grpc"
 )
 

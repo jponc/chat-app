@@ -21,5 +21,10 @@ minikube_portforward_envoy:
 clean:
 	rm -rf ./bin
 
-compile_go_proto:
-	protoc --go_out=. --go-grpc_out=. proto/*
+compile_proto:
+	cd proto && protoc --go_out=. --go-grpc_out=. *.proto
+	cd proto && \
+		protoc --js_out=import_style=commonjs,binary:./typescript/. \
+		--grpc-web_out=import_style=typescript,mode=grpcweb:./typescript/. *.proto
+
+

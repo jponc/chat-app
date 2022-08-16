@@ -1,5 +1,5 @@
 syntax = "proto3";
-option go_package="./pbs/chatapp_apiservice_v1";
+option go_package="./go/chatapp_apiservice_v1";
 
 package chatapp_apiservice_v1;
 
