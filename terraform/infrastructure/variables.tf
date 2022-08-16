@@ -17,3 +17,8 @@ variable "aws_region" {
   type        = string
   description = "AWS Region"
 }
+
+variable "cluster_name" {
+  type        = string
+  description = "Name of the application cluster"
+}
