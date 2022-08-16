@@ -7,13 +7,18 @@ build:
 	docker build -f deployments/api/Dockerfile -t chat-app-api .
 	docker build -f deployments/envoy/Dockerfile -t chat-app-envoy deployments/envoy/.
 
-minikube_apply_deployments:
+minikube_start: clean build
 	kubectl apply -f deployments/api/deployment.yaml
 	kubectl apply -f deployments/envoy/deployment.yaml
-
-minikube_create_services:
 	kubectl create -f deployments/api/service.yaml
 	kubectl create -f deployments/envoy/service.yaml
+	kubectl port-forward service/envoy-svc 8080:8080
+
+minikube_delete:
+	kubectl delete deployment api
+	kubectl delete deployment envoy
+	kubectl delete svc api-svc
+	kubectl delete svc envoy-svc
 
 minikube_portforward_envoy:
 	kubectl port-forward service/envoy-svc 8080:8080
