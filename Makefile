@@ -38,4 +38,3 @@ compile_proto:
 		protoc --js_out=import_style=commonjs,binary:./typescript/. \
 		--grpc-web_out=import_style=typescript,mode=grpcweb:./typescript/. *.proto
 
-
