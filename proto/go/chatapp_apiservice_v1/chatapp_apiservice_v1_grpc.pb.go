@@ -23,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ApiClient interface {
 	Hello(ctx context.Context, in *HelloRequest, opts ...grpc.CallOption) (*HelloResponse, error)
+	GetNames(ctx context.Context, in *GetNamesRequest, opts ...grpc.CallOption) (*GetNamesResponse, error)
 }
 
 type apiClient struct {
@@ -42,11 +43,21 @@ func (c *apiClient) Hello(ctx context.Context, in *HelloRequest, opts ...grpc.Ca
 	return out, nil
 }
 
+func (c *apiClient) GetNames(ctx context.Context, in *GetNamesRequest, opts ...grpc.CallOption) (*GetNamesResponse, error) {
+	out := new(GetNamesResponse)
+	err := c.cc.Invoke(ctx, "/chatapp_apiservice_v1.Api/GetNames", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ApiServer is the server API for Api service.
 // All implementations must embed UnimplementedApiServer
 // for forward compatibility
 type ApiServer interface {
 	Hello(context.Context, *HelloRequest) (*HelloResponse, error)
+	GetNames(context.Context, *GetNamesRequest) (*GetNamesResponse, error)
 	mustEmbedUnimplementedApiServer()
 }
 
@@ -56,6 +67,9 @@ type UnimplementedApiServer struct {
 
 func (UnimplementedApiServer) Hello(context.Context, *HelloRequest) (*HelloResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Hello not implemented")
+}
+func (UnimplementedApiServer) GetNames(context.Context, *GetNamesRequest) (*GetNamesResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetNames not implemented")
 }
 func (UnimplementedApiServer) mustEmbedUnimplementedApiServer() {}
 
@@ -88,6 +102,24 @@ func _Api_Hello_Handler(srv interface{}, ctx context.Context, dec func(interface
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Api_GetNames_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetNamesRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ApiServer).GetNames(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/chatapp_apiservice_v1.Api/GetNames",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ApiServer).GetNames(ctx, req.(*GetNamesRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Api_ServiceDesc is the grpc.ServiceDesc for Api service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +130,10 @@ var Api_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Hello",
 			Handler:    _Api_Hello_Handler,
+		},
+		{
+			MethodName: "GetNames",
+			Handler:    _Api_GetNames_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

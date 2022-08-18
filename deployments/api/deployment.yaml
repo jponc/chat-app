@@ -24,6 +24,8 @@ spec:
           env:
             - name: PORT
               value: "50051"
+            - name: MONGODB_URL
+              value: "mongodb://root:password@mongodb-svc:27017"
           ports:
             - name: api
               containerPort: 50051

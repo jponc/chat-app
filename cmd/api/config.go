@@ -4,16 +4,24 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 )
 
 // Config
 type Config struct {
-	Port int
+	Port           int
+	MongoDBUrl     string
+	MongoDBTimeout time.Duration
 }
 
 // NewConfig initialises a new config
 func NewConfig() (*Config, error) {
 	portStr, err := getEnv("PORT")
+	if err != nil {
+		return nil, err
+	}
+
+	mongoDBUrl, err := getEnv("MONGODB_URL")
 	if err != nil {
 		return nil, err
 	}
@@ -24,7 +32,9 @@ func NewConfig() (*Config, error) {
 	}
 
 	return &Config{
-		Port: port,
+		Port:           port,
+		MongoDBUrl:     mongoDBUrl,
+		MongoDBTimeout: 10 * time.Second,
 	}, nil
 }
 

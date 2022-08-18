@@ -78,5 +78,48 @@ export class ApiClient {
     this.methodDescriptorHello);
   }
 
+  methodDescriptorGetNames = new grpcWeb.MethodDescriptor(
+    '/chatapp_apiservice_v1.Api/GetNames',
+    grpcWeb.MethodType.UNARY,
+    chatapp_apiservice_v1_pb.GetNamesRequest,
+    chatapp_apiservice_v1_pb.GetNamesResponse,
+    (request: chatapp_apiservice_v1_pb.GetNamesRequest) => {
+      return request.serializeBinary();
+    },
+    chatapp_apiservice_v1_pb.GetNamesResponse.deserializeBinary
+  );
+
+  getNames(
+    request: chatapp_apiservice_v1_pb.GetNamesRequest,
+    metadata: grpcWeb.Metadata | null): Promise<chatapp_apiservice_v1_pb.GetNamesResponse>;
+
+  getNames(
+    request: chatapp_apiservice_v1_pb.GetNamesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback: (err: grpcWeb.RpcError,
+               response: chatapp_apiservice_v1_pb.GetNamesResponse) => void): grpcWeb.ClientReadableStream<chatapp_apiservice_v1_pb.GetNamesResponse>;
+
+  getNames(
+    request: chatapp_apiservice_v1_pb.GetNamesRequest,
+    metadata: grpcWeb.Metadata | null,
+    callback?: (err: grpcWeb.RpcError,
+               response: chatapp_apiservice_v1_pb.GetNamesResponse) => void) {
+    if (callback !== undefined) {
+      return this.client_.rpcCall(
+        this.hostname_ +
+          '/chatapp_apiservice_v1.Api/GetNames',
+        request,
+        metadata || {},
+        this.methodDescriptorGetNames,
+        callback);
+    }
+    return this.client_.unaryCall(
+    this.hostname_ +
+      '/chatapp_apiservice_v1.Api/GetNames',
+    request,
+    metadata || {},
+    this.methodDescriptorGetNames);
+  }
+
 }
 

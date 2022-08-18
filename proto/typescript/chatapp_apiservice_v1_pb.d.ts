@@ -38,3 +38,37 @@ export namespace HelloResponse {
   }
 }
 
+export class GetNamesRequest extends jspb.Message {
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetNamesRequest.AsObject;
+  static toObject(includeInstance: boolean, msg: GetNamesRequest): GetNamesRequest.AsObject;
+  static serializeBinaryToWriter(message: GetNamesRequest, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetNamesRequest;
+  static deserializeBinaryFromReader(message: GetNamesRequest, reader: jspb.BinaryReader): GetNamesRequest;
+}
+
+export namespace GetNamesRequest {
+  export type AsObject = {
+  }
+}
+
+export class GetNamesResponse extends jspb.Message {
+  getNamesList(): Array<string>;
+  setNamesList(value: Array<string>): GetNamesResponse;
+  clearNamesList(): GetNamesResponse;
+  addNames(value: string, index?: number): GetNamesResponse;
+
+  serializeBinary(): Uint8Array;
+  toObject(includeInstance?: boolean): GetNamesResponse.AsObject;
+  static toObject(includeInstance: boolean, msg: GetNamesResponse): GetNamesResponse.AsObject;
+  static serializeBinaryToWriter(message: GetNamesResponse, writer: jspb.BinaryWriter): void;
+  static deserializeBinary(bytes: Uint8Array): GetNamesResponse;
+  static deserializeBinaryFromReader(message: GetNamesResponse, reader: jspb.BinaryReader): GetNamesResponse;
+}
+
+export namespace GetNamesResponse {
+  export type AsObject = {
+    namesList: Array<string>,
+  }
+}
+
